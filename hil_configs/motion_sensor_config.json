@@ -1,0 +1,35 @@
+"motion_sensor": {
+    "type": "3-Axis Accelerometer & Gyroscope",
+    "realism_settings": {
+      "accelerometer": {
+        "range_g": "±16",
+        // A more realistic way to model noise for a sensor.
+        "noise_density_ug_per_sqrt_hz": 200,
+        "bias_drift_model": {
+          "type": "RANDOM_WALK",
+          "rate_ug_per_s_per_sqrt_s": 0.5
+        }
+      },
+      "gyroscope": {
+        "range_dps": "±2000",
+        "noise_density_mdps_per_sqrt_hz": 10,
+        "bias_drift_model": {
+          "type": "LINEAR_DRIFT",
+          "rate_dps_per_min": 0.01
+        }
+      }
+    },
+    "motion_event_profile": [
+      // Format: [time_s, x_accel_g, y_accel_g, z_accel_g, x_gyro_dps, y_gyro_dps, z_gyro_dps]
+      [10, 0, 9.81, 0, 0, 0, 0], // Simulate a drop
+      [15, 5, 0, 0, 0, 0, 90]    // Simulate a sudden push and a rotation
+    ],
+    "failure_modes": {
+      "stuck_values": {
+        "accelerometer_g": [0, 0, 0],
+        "gyroscope_dps": [0, 0, 0]
+      },
+      "simulated_failure": "NONE",
+      "injection_time_s": 420
+    }
+  }
