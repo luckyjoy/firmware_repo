@@ -22,9 +22,7 @@ git push -u origin main
 curl -u "luckyjoy:11ce1755fa745c0bf522d169a9cac2ca11" -k -X POST "https://localhost:8443/job/firmware_repo/build"
 sleep 10
 
-rem start "" "https://localhost:8443/view/all/builds"
-
-start "" "https://github.com/luckyjoy/fimware_repo/actions"
+start "" "https://github.com/luckyjoy/firmware_repo/actions"
 
 echo.
 
