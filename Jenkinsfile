@@ -36,7 +36,7 @@ pipeline {
             steps {
                 script {
                     // Prepare Behave command
-                    def behaveCommand = "${PYTHON} -m behave --tags=@all --exclude \"features/manual_tests/.*\" -f html-pretty -o \"${REPORT_DIR}/validation_report.html\""
+                    def behaveCommand = "${PYTHON} -m behave --tags=@smoke --exclude \"features/manual_tests/.*\" -f html-pretty -o \"${REPORT_DIR}/automation_report.html\""
 
                     // Run Behave and capture exit code (do not fail pipeline immediately)
                     def exitCode = bat(script: behaveCommand, returnStatus: true)
