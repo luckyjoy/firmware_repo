@@ -5,7 +5,7 @@ Feature: Heat sensor firmware update with Hardware-in-the-Loop (HIL)
   Using Hardware-in-the-Loop (HIL) testing
   So that I can ensure reliable upgrades under real hardware conditions
 
-  @acceptance
+   @smoke
   Scenario: <REQ_FW_05> <REQ_FW_06> <REQ_FW_07> Successful firmware update on heat sensor with sufficient battery
     Given the heat sensor is connected to the HIL testbench
     And the sensor battery level is above 40%
@@ -13,7 +13,7 @@ Feature: Heat sensor firmware update with Hardware-in-the-Loop (HIL)
     Then the update should complete successfully
     And the sensor should reboot with firmware version "1.0.2.2"
 
-  @negative
+  @negative 
   Scenario: <REQ_FW_05> <REQ_FW_06> <REQ_FW_07> Heat sensor firmware update fails due to low battery
     Given the heat sensor is connected to the HIL testbench
     And the sensor battery level is below 15%
@@ -21,7 +21,7 @@ Feature: Heat sensor firmware update with Hardware-in-the-Loop (HIL)
     Then the update should fail with error "LOW_BATTERY"
     And the sensor should remain on its current firmware
 
-  @resilience
+  @resilience  @smoke
   Scenario: <REQ_FW_13> <REQ_FW_14> Heat sensor loses power during firmware update
     Given the heat sensor is connected to the HIL testbench
     And the sensor battery level is above 50%

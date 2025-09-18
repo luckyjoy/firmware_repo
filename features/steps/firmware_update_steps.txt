@@ -27,8 +27,6 @@ def step_impl(context, error_code):
 
 @then('the current firmware should remain active')
 def step_impl(context):
-    assert hasattr(context, 'active_firmware'), "Context variable 'active_firmware' is not set. Ensure 'the sensor has an active firmware version' step is used."
-    assert hasattr(context, 'new_firmware'), "Context variable 'new_firmware' is not set. Ensure 'a new firmware version is attempted' step is used."
     assert context.new_firmware != context.active_firmware, \
         "Firmware should not have updated!"
     logger.info("Current firmware remains active.")
@@ -45,7 +43,7 @@ def step_impl(context):
 
 @then('rollback to the previous firmware version')
 def step_impl(context):
-    assert hasattr(context, 'previous_firmware'), "Context variable 'previous_firmware' is not set."
+    # This step now has access to context.previous_firmware
     context.active_firmware = context.previous_firmware
     assert context.active_firmware == context.previous_firmware
     logger.info("Rolled back to previous firmware.")

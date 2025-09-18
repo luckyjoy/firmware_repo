@@ -5,7 +5,7 @@ Feature: Motion Sensor Firmware Update with Hardware-in-the-Loop (HIL)
   I want to validate the firmware update process
   So that I know my device is reliable
 
-  @full_battery
+  @full_battery  @smoke
   Scenario Outline: <REQ_FW_01> <REQ_FW_02> <REQ_FW_03> <REQ_FW_04> A new firmware update is successfully installed when sensor battery is not low.
     Given a motion sensor with UUID=<UUID> is connected to the network
     And The sensor battery level is not below the minimum threshold 30%
@@ -23,7 +23,7 @@ Feature: Motion Sensor Firmware Update with Hardware-in-the-Loop (HIL)
       | "378da358-0bab-1e5f-f6e5-ca06bd575da0" | "1.0.2.1"       | "1.1.0.0"   |
 
 
-  @low_battery
+  @low_battery  @smoke
   Scenario Outline: <REQ_FW_05> <REQ_FW_06> <REQ_FW_07> A new firmware update is not installed when sensor battery is low.
     Given a motion sensor with UUID=<UUID> is connected to the network
     And The sensor battery level is below the minimum threshold 30%
@@ -40,7 +40,7 @@ Feature: Motion Sensor Firmware Update with Hardware-in-the-Loop (HIL)
       | "378da358-0bab-1e5f-f6e5-ca06bd575da0" | "1.0.2.1"       | "1.1.0.0"   |
 
 
-  @lost_connection
+  @lost_connection 
   Scenario Outline: <REQ_FW_08> <REQ_FW_09> <REQ_FW_10> <REQ_FW_11> The sensor loses connection during the firmware update
     Given a motion sensor with UUID=<UUID> is connected to the network
     And The sensor battery level is below the minimum threshold 30%
