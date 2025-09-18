@@ -15,7 +15,6 @@ on:
     - cron: '0 8 * * *'
 
 jobs:
-
   build-and-test:
     runs-on: ${{ matrix.os }}
     strategy:
@@ -37,9 +36,14 @@ jobs:
           pip install -r requirements.txt
           pip install behave-html-pretty-formatter
 
+      - name: Create Reports Directory
+        run: |
+          # Use a cross-platform command to create the directory if it doesn't exist
+          if not exist reports mkdir reports
+        shell: cmd
+
       - name: Run Behave Tests
         run: |
-          mkdir -p reports
           behave --tags=@smoke --exclude "features/manual_tests" --format behave_html_pretty_formatter:PrettyHTMLFormatter -o reports/validation_report.html
 
       - name: Upload Test Report
@@ -48,4 +52,3 @@ jobs:
           name: -report-${{ matrix.os }}
           path: reports/validation_report.html
           retention-days: 7
-
