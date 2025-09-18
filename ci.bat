@@ -19,7 +19,7 @@ git branch -M main
 REM Push to origin main
 git push -u origin main
 
-#curl -u "luckyjoy:11ce1755fa745c0bf522d169a9cac2ca11" -k -X POST "https://localhost:8443/job/firmware_repo/build"
+rem curl -u "luckyjoy:11ce1755fa745c0bf522d169a9cac2ca11" -k -X POST "https://localhost:8443/job/firmware_repo/build"
 sleep 10
 
 start "" "https://github.com/luckyjoy/firmware_repo/actions"

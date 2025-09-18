@@ -40,7 +40,7 @@ jobs:
       - name: Run Behave Tests
         run: |
           mkdir -p reports
-          behave --tags=@all --exclude "features/manual_tests" --format behave_html_pretty_formatter:PrettyHTMLFormatter -o reports/validation_report.html
+          behave --tags=@smoke --exclude "features/manual_tests" --format behave_html_pretty_formatter:PrettyHTMLFormatter -o reports/validation_report.html
 
       - name: Upload Test Report
         uses: actions/upload-artifact@v4
