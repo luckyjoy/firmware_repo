@@ -1,14 +1,12 @@
-"gas_sensor": {
+{
+  "gas_sensor": {
     "type": "MQ-2",
     "target_gas": "Methane",
     "nominal_value_ppm": 100,
     "alarm_threshold_ppm": 500,
     "realism_settings": {
-      // Time required for the sensor to stabilize after power-on.
       "time_to_warm_up_s": 60,
-      // Time it takes for the sensor to react to a change in gas concentration.
       "response_time_s": 2.5,
-      // This can represent a simple offset or a complex function.
       "calibration_offset_ppm": -5,
       "calibration_curve_equation": "output = a * ppm^b + c",
       "noise_model": {
@@ -23,3 +21,4 @@
       "injection_time_s": 300
     }
   }
+}

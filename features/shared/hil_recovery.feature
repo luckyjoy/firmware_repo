@@ -1,4 +1,4 @@
-@firmware @hil
+@all @firmware @hil
 Feature: HIL-based recovery validation for firmware updates
   To ensure devices can recover from failed firmware updates
   Using Hardware-in-the-Loop (HIL) testing

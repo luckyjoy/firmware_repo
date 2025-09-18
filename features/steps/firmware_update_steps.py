@@ -3,6 +3,13 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+# New step to set the initial firmware version and save it for rollback
+@given('the sensor has an active firmware version "{version}"')
+def step_impl(context, version):
+    context.active_firmware = version
+    context.previous_firmware = version  # Store the initial version
+    logger.info(f"Sensor has active firmware {version}.")
+
 @given('the firmware update process has started')
 def step_impl(context):
     context.firmware_update_started = True
@@ -36,6 +43,7 @@ def step_impl(context):
 
 @then('rollback to the previous firmware version')
 def step_impl(context):
+    # This step now has access to context.previous_firmware
     context.active_firmware = context.previous_firmware
     assert context.active_firmware == context.previous_firmware
     logger.info("Rolled back to previous firmware.")

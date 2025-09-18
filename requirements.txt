@@ -1,0 +1,6 @@
+pytest
+pytest-bdd
+python-can
+plotly
+pandas
+behave-html-pretty-formatter

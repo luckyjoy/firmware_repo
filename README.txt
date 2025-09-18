@@ -1,7 +1,11 @@
 1. Preparation: Sets up Python 3.13. Installs dependencies from requirements.txt.
 
 2. Test Suite Execution:
-    - Runs Behave tests for motion sensors, heat sensors, gas sensors: behave --tags=@firmware,~@manual -f html-pretty -o reports\validation_report.html. 
+    - Runs Behave tests for motion sensors, heat sensors, gas sensors: 
+			behave --tags=@firmware,~@manual -f html-pretty -o reports/validation_report.html. 
+			behave --tags=@firmware,~@manual -f allure_behave.formatter:AllureFormatter -o allure-results
+			behavex --parallel-processes=2 --parallel-scheme=feature  -t @gas_sensor,@heat_sensor -f html-pretty -o reports/validation_report.html
+			behave --tags=@firmware -f allure_behave.formatter:AllureFormatter -o reports/allure_report.html. 
     - Each test generates its HTML report in reports/.
 
 3. GitHub CI/CD: Setting up a workflow file, defining the jobs, and running your Behave tests. GitHub Actions to automate this process.

@@ -1,3 +1,4 @@
+{
   "heat_sensor": {
     "type": "Thermocouple (Type K)",
     "unit": "Celsius",
@@ -7,12 +8,8 @@
       "max": 150
     },
     "realism_settings": {
-      // A more formal term for thermal lag, representing how quickly the sensor
-      // reaches a new temperature.
       "thermal_time_constant_s": 2.5,
-      // Slow, continuous change in the sensor's reading over time.
       "drift_rate_c_per_hour": 0.1,
-      // A constant offset to simulate a fixed calibration error.
       "offset_error_c": -1.2,
       "noise_model": {
         "type": "GAUSSIAN",
@@ -25,3 +22,4 @@
       "injection_time_s": 360
     }
   }
+}

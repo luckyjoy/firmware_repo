@@ -1,4 +1,5 @@
+from allure_behave.hooks import allure_report
+
 def before_all(context):
-    for formatter in context._runner.formatters:
-        if formatter.name == "html-pretty":
-            formatter.set_title("Custom QA Report")
+    # Initialize Allure reporting
+    allure_report("allure-results")

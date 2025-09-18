@@ -5,6 +5,15 @@ Feature: Gas sensor firmware update with Hardware-in-the-Loop (HIL)
   Using Hardware-in-the-Loop (HIL) testing
   So that I can ensure safety-critical updates behave correctly
 
+  @test
+  Scenario: <REQ_FW_05> <REQ_FW_06> <REQ_FW_07> Successful gas sensor firmware update
+  	- fio.exe --name=qd_test_iodepth_128 --rw=randread --bs=4k --size=1g --iodepth=128 --direct=1 --numjobs=1 --runtime=30 --output-format=json --output=qd_test_iodepth_128_output.json --filename=test_file.dat
+    Given the gas sensor is connected to the HIL rig
+    And the network connection to the update server is stable
+    When a new firmware version "1.0.2.2" is flashed via HIL
+    Then the update should complete successfully
+    And the sensor should reboot with firmware version "1.0.2.2"
+	
   @acceptance
   Scenario: <REQ_FW_05> <REQ_FW_06> <REQ_FW_07> Successful gas sensor firmware update
     Given the gas sensor is connected to the HIL rig
