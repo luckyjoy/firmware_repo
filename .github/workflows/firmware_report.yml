@@ -38,10 +38,9 @@ jobs:
 
       - name: Run Behave Tests
         # Use shell: bash to ensure the command works on both Linux and Windows runners
-        run: |
-          mkdir -p reports
+        run:
           # The -o flag is now corrected to output the file to the 'reports' directory
-          behave --tags=@adv --exclude "features/manual_tests" --format behave_html_pretty_formatter:PrettyHTMLFormatter -o reports/index.html
+          behave --tags=@adv --exclude "features/manual_tests" --format behave_html_pretty_formatter:PrettyHTMLFormatter -o index.html
         shell: bash
 
       - name: Upload HTML report artifact
@@ -49,7 +48,7 @@ jobs:
         with:
           name: html-report-${{ matrix.os }}
           # The path is corrected to match the new output location
-          path: reports/index.html
+          path: index.html
 
       - name: Deploy Report to GitHub Pages
         if: github.event_name == 'push' && github.ref == 'refs/heads/main' && matrix.os == 'ubuntu-latest'
@@ -57,6 +56,6 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # The 'publish_dir' is now correctly set to the 'reports' directory
-          publish_dir: ./reports
+          publish_dir:
           publish_branch: gh-pages
           keep_files: true
