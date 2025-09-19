@@ -1,5 +1,3 @@
-# Triggers the workflow on push, pull request, and a daily schedule
-
 name: HIL Sensors Automation By Bang Thien Nguyen
 
 on:
@@ -42,20 +40,23 @@ jobs:
         # Use shell: bash to ensure the command works on both Linux and Windows runners
         run: |
           mkdir -p reports
-          behave --tags=@adv --exclude "features/manual_tests" --format behave_html_pretty_formatter:PrettyHTMLFormatter -o index.html
+          # The -o flag is now corrected to output the file to the 'reports' directory
+          behave --tags=@adv --exclude "features/manual_tests" --format behave_html_pretty_formatter:PrettyHTMLFormatter -o reports/index.html
         shell: bash
 
       - name: Upload HTML report artifact
         uses: actions/upload-artifact@v4
         with:
           name: html-report-${{ matrix.os }}
-          path: index.html
+          # The path is corrected to match the new output location
+          path: reports/index.html
 
       - name: Deploy Report to GitHub Pages
         if: github.event_name == 'push' && github.ref == 'refs/heads/main' && matrix.os == 'ubuntu-latest'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir:
+          # The 'publish_dir' is now correctly set to the 'reports' directory
+          publish_dir: ./reports
           publish_branch: gh-pages
           keep_files: true
