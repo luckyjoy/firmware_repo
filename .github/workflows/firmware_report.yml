@@ -1,6 +1,7 @@
+# Triggers the workflow on push, pull request, and a daily schedule
+
 name: HIL Sensors Automation By Bang Thien Nguyen
 
-# Triggers the workflow on push, pull request, and a daily schedule
 on:
   push:
     branches:
@@ -9,17 +10,14 @@ on:
     branches:
       - main
   schedule:
-    # Runs at 1:00 AM PT every day (8:00 UTC)
     - cron: '0 8 * * *'
 
 jobs:
   build-and-test:
-    # Use a build matrix to run the job on both Linux and Windows
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-    # Grant necessary permissions for the workflow to deploy to GitHub Pages
     permissions:
       contents: write
       pages: write
@@ -41,25 +39,23 @@ jobs:
           pip install behave-html-pretty-formatter
 
       - name: Run Behave Tests
-        # Create a reports directory and save the HTML report inside it
+        # Use shell: bash to ensure the command works on both Linux and Windows runners
         run: |
           mkdir -p reports
-          behave --tags=@adv --exclude "features/manual_tests" --format behave_html_pretty_formatter:PrettyHTMLFormatter -o reports/index.html
-    
+          behave --tags=@adv --exclude "features/manual_tests" --format behave_html_pretty_formatter:PrettyHTMLFormatter -o index.html
+        shell: bash
+
       - name: Upload HTML report artifact
-        # This makes the report available to download from the workflow run summary
         uses: actions/upload-artifact@v4
         with:
           name: html-report-${{ matrix.os }}
-          path: reports/index.html
+          path: index.html
 
       - name: Deploy Report to GitHub Pages
-        # Only deploy on a push to the main branch and from the Ubuntu runner
         if: github.event_name == 'push' && github.ref == 'refs/heads/main' && matrix.os == 'ubuntu-latest'
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          # Publish the contents of the 'reports' directory
-          publish_dir: ./reports
+          publish_dir:
           publish_branch: gh-pages
           keep_files: true
