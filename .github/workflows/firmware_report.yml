@@ -1,5 +1,4 @@
-name: HIL Firmware Tests CI
-
+name: SSD Hyperscale Automation Framework By Bang Thien Nguyen
 # push to main
 # Whenever you commit and push code to the main branch, the workflow runs automatically.
 # pull_request to main
@@ -39,11 +38,21 @@ jobs:
       - name: Run Behave Tests
         run: |
           mkdir -p reports
-          behave --tags=@smoke --exclude "features/manual_tests" --format behave_html_pretty_formatter:PrettyHTMLFormatter -o reports/validation_report.html
-
-      - name: Upload Test Report
+          behave --tags=@adv --exclude "features/manual_tests" --format behave_html_pretty_formatter:PrettyHTMLFormatter -o index.html
+    
+      - name: Upload HTML report artifact
         uses: actions/upload-artifact@v4
         with:
-          name: -report-${{ matrix.os }}
-          path: reports/validation_report.html
-          retention-days: 7
+          name: html-report-${{ matrix.os }}
+          # The path is now simply 'index.html' from the root of the repo
+          path: index.html
+
+      - name: Deploy Report to GitHub Pages
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && matrix.os == 'ubuntu-latest'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # Publish from the root directory of the repo
+          publish_dir: .
+          publish_branch: gh-pages
+          keep_files: true

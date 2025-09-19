@@ -84,7 +84,7 @@ pipeline {
                     alwaysLinkToLastBuild: true,
                     keepAll: true,
                     reportDir: "${REPORT_DIR}",
-                    reportFiles: 'validation_report.html',
+                    reportFiles: 'automation_report.html',
                     reportName: "Behave Test Report - Build ${BUILD_NUMBER}",
                     reportTitles: "Firmware Validation - Build ${BUILD_NUMBER}"
                 ])
